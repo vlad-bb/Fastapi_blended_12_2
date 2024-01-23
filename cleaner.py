@@ -29,7 +29,7 @@ def move_files(path: str, files: dict, folder: str) -> None:
 
 
 def main():
-    path = "D:\\hl"
+    path = input(f'Введіть шлях до папки яку потрібно відсортувати("D:\\hl"): ')
     folder_files = {}
     for root, dirs, files in os.walk(path, topdown=False):
         folder_files[root] = files
