@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Перша стаття",
+    "date": "8.10.2023",
+    "author": "Viktor",
+    "text": "Lorem Ipsum is .."
+  },
+  {
+    "title": "О корисності пива",
+    "date": "9.10.2023",
+    "author": "Andriy",
+    "text": "Lorem Ipsum is .."
+  },
+  {
+    "title": "Чому програмування це зло",
+    "date": "10.10.2023",
+    "author": "Sergiy",
+    "text": "Lorem Ipsum is .."
+  },
+  {
+    "title": "Чого кіт не дає спати",
+    "date": "11.10.2023",
+    "author": "Volodya",
+    "text": "Lorem Ipsum is .."
+  }
+]
