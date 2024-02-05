@@ -21,9 +21,7 @@ async def request(url: str, querystring: dict, headers: dict) -> dict | str:
         async with session.get(url, params=querystring, headers=headers) as response:
             response.raise_for_status()
             response_json = await response.json()
-            date = response_json["date"]
             data = response_json["exchangeRate"]
-            # result = {date: {}}
             pattern = '|{:^10}|{:^10}|{:^10}|\n'
             result = '|{:^32}|\n'.format(response_json["date"])
             result += pattern.format('Currency', 'Sale', 'Purchase')
@@ -31,12 +29,6 @@ async def request(url: str, querystring: dict, headers: dict) -> dict | str:
                 currency = el["currency"]
                 if currency in ['USD', 'EUR']:
                     result += pattern.format(el["currency"], el["saleRate"], el["purchaseRate"])
-                    # sale = el["saleRate"]
-                    # purchase = el["purchaseRate"]
-                    # result[date].update({
-                    #     currency: {'sale': sale,
-                    #                'purchase': purchase}
-                    # })
             return result
 
 
@@ -49,9 +41,7 @@ async def get_exchange(days):
         querystring = {"json": "", "date": f"{date_string}"}
         tasks.append(request(url, querystring, headers))
 
-    # return json.dumps(await asyncio.gather(*tasks), indent=2, ensure_ascii=False)
     result = await asyncio.gather(*tasks)
-    print(''.join(result))
     return ''.join(result)
 
 
