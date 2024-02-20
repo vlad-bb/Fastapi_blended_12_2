@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "hw-6"
+name = "hw-7"
 version = "0.1.0"
 description = ""
 authors = ["Delah0ya <viktor.deleichuk@gmail.com>"]
@@ -7,7 +7,9 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-faker = "^23.1.0"
+sqlalchemy = "^2.0.27"
+alembic = "^1.13.1"
+faker = "^23.2.1"
 tabulate = "^0.9.0"
 
 
