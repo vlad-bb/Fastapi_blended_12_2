@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+AddAnm
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% if form.errors and form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+                {{form.non_field_errors}}
+            </div>
+        {% endif %}
+        <form action="{% url 'noteapp:addauthor' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Fullname</label>
+                {{ form.fullname }}
+                <span>{{ form.errors.fullname }}</span>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Born Date</label>
+                {{ form.born_date }}
+                <span>{{ form.errors.born_date }}</span>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Born Location</label>
+                {{ form.born_location }}
+                <span>{{ form.errors.born_location }}</span>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Description</label>
+                {{ form.description }}
+                <span>{{ form.errors.description }}</span>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+        </form>
+    </div>
+{% endblock %}

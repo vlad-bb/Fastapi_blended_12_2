@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+AddAnm
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if form.errors and form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">
+        {{form.non_field_errors}}
+    </div>
+    {% endif %}
+    <form action="{% url 'noteapp:addquote' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Quote</label>
+            {{ form.quote }}
+            <span>{{ form.errors.quote }}</span>
+        </div>
+        <div class="input-group mb-3">
+            {{ form.author }}
+            <a class="btn btn-primary" href="{% url 'noteapp:addauthor' %}" role="button">AddAuthor</a>
+            <span>{{ form.errors.quote }}</span>
+        </div>
+        <div class="input-group mb-3">
+            <select name="tags" class="form-select" multiple aria-label="Multiple select example" size="2">
+                {% for tag in tags %}
+                <option value="{{tag.name}}">{{tag.name}}</option>
+                {% endfor %}
+            </select>
+            <a class="btn btn-primary" href="{% url 'noteapp:addtag' %}" role="button">AddTag</a>
+            {% if user.is_authenticated %}
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-secondary">Reset</button>
+    </form>
+</div>
+{% endblock %}
