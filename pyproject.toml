@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "hw-10"
+name = "hw-11"
 version = "0.1.0"
 description = ""
 authors = ["Delah0ya <viktor.deleichuk@gmail.com>"]
@@ -7,12 +7,12 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-django = "^5.0.3"
-psycopg2 = "^2.9.9"
-pillow = "^10.2.0"
-mongoengine = "^0.28.2"
+aiosqlite = "^0.20.0"
+fastapi = "^0.110.0"
+sqlalchemy = "^2.0.28"
+uvicorn = "^0.28.1"
+pydantic = {extras = ["email"], version = "^2.6.4"}
 python-dotenv = "^1.0.1"
-pymongo = "^4.6.2"
 
 
 [build-system]
