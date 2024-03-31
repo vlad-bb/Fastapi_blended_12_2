@@ -1,13 +1,16 @@
-from fastapi import FastAPI, Depends
+import uvicorn
 
-from sqlalchemy.ext.asyncio import AsyncSession
-from connect import get_async_session, create_db_and_tables
-from src.contacts.routes import router
+from fastapi import FastAPI
+
+from src.contacts.routes import router as contacts_router
+from src.auth.routes import router as auth_router
+
 
 app = FastAPI()
-app.include_router(router, prefix='/api')
+
+app.include_router(auth_router)
+app.include_router(contacts_router, prefix='/api')
 
 
-@app.on_event('startup')
-async def on_startup(db: AsyncSession = Depends(get_async_session)):
-    await create_db_and_tables()
+if __name__ == '__main__':
+    uvicorn.run('main:app', host='localhost', port=8000, reload=True)
