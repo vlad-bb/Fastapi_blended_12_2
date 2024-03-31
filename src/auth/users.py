@@ -11,17 +11,15 @@ async def get_user_by_email(email: str, db: AsyncSession) -> User:
     return user.scalar_one_or_none()
 
 
-async def create_user(body: UserSchema | dict, db: AsyncSession, avatar=None) -> User:
-    if not avatar:
-        try:
-            g = Gravatar(body.email)
-            avatar = g.get_image()
-        except Exception as err:
-            print(err)
-    if isinstance(body, UserSchema):
-        new_user = User(**body.model_dump(), avatar=avatar)
-    else:
-        new_user = User(**body, avatar=avatar)
+async def create_user(body: UserSchema, db: AsyncSession) -> User:
+    avatar = None
+    try:
+        g = Gravatar(body.email)
+        avatar = g.get_image()
+    except Exception as err:
+        print(err)
+
+    new_user = User(**body.model_dump(), avatar=avatar)
     db.add(new_user)
     await db.commit()
     await db.refresh(new_user)
