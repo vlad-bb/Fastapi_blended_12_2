@@ -1,6 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException, Query, Security, status
+import json
+
+from fastapi import APIRouter, Depends, HTTPException, Query, Security, status, Request
 from fastapi.security import OAuth2PasswordRequestForm, HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 
 from connect import get_async_session
 from src.auth import users as users_repository
@@ -10,6 +14,7 @@ from src.auth.service import (get_password_hash, verify_password, create_access_
 
 router = APIRouter(prefix='/auth', tags=['auth'])
 get_refresh_token = HTTPBearer()
+templates = Jinja2Templates(directory="src/templates")
 
 
 @router.post('/signup', response_model=UserResponseSchema, status_code=status.HTTP_201_CREATED)
@@ -50,3 +55,27 @@ async def refresh_token(credentials: HTTPAuthorizationCredentials = Security(get
     refresh_token = await create_refresh_token(data={'sub': email})
     await users_repository.update_token(user, refresh_token, db)
     return {'access_token': access_token, 'refresh_token': refresh_token, 'token_type': 'bearer'}
+
+
+@router.get("/signup_page", response_class=HTMLResponse)
+async def signup_page(request: Request):
+    return templates.TemplateResponse("signup.html", {
+        "json": json,
+        "request": request,
+    })
+
+
+@router.get("/login_page", response_class=HTMLResponse)
+async def login_page(request: Request):
+    return templates.TemplateResponse("login.html", {
+        "json": json,
+        "request": request,
+    })
+
+
+@router.get("/save_password", response_class=HTMLResponse)
+async def save_password(request: Request):
+    return templates.TemplateResponse("save_password.html", {
+        "json": json,
+        "request": request,
+    })
